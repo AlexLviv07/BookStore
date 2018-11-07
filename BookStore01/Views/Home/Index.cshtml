@@ -1,0 +1,107 @@
+﻿	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">Додавання нової книги</h3>
+		</div>
+		<div class="panel-body">
+			@using (Ajax.BeginForm("AddBook", new AjaxOptions { UpdateTargetId = "BookList" }))
+			{
+				<div class="form-group">
+					<label for="inputEmail" class="col-lg-3 control-label">Введіть назву</label>
+					<div class="col-lg-9">
+						<input type="text" name="Name" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail" class="col-lg-3 control-label">Введіть автора</label>
+					<div class="col-lg-9">
+						<input type="text" name="Author" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail" class="col-lg-3 control-label">Введіть рік випуску</label>
+					<div class="col-lg-9">
+						<input type="text" name="YearRelease" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="select" class="col-lg-3 control-label">Виберіть жанр</label>
+					<div class="col-lg-9">
+						<select name="GenreId">
+							@foreach (var b in ViewBag.Genres)
+							{
+								<option value="@b.Id">@b.Name</option>
+							}
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-lg-9 col-lg-offset-3">
+						<button type="submit" class="btn btn-primary">Додати</button>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">Видалення книги</h3>
+		</div>
+		<div class="panel-body">
+			@using (Ajax.BeginForm("DeleteBook", new AjaxOptions { UpdateTargetId = "BookList", Confirm = "Ви справді хочете видалити???" }))
+			{
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-3 control-label">Введіть id книги</label>
+				<div class="col-lg-9">
+					<input type="text" name="id" />
+					<button type="submit" class="btn btn-primary">Видалити</button>
+				</div>
+			</div>
+			}
+		</div>
+	</div>
+
+	
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">Список наявних книг</h3>
+		</div>
+		<div class="panel-body">
+			<div id="BookList">
+				<table class="table table-striped table-hover ">
+					<thead>
+						<tr class="header">
+							<th><p>Id</p></th>
+							<th><p>Назва книги</p></th>
+							<th><p>Автор</p></th>
+							<th><p>Рік випуску</p></th>
+							<th>Жанр</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var b in ViewBag.Books)
+						{
+							<tr>
+								<td><p>@b.Id</p></td>
+								<td><p>@b.Name</p></td>
+								<td><p>@b.Author</p></td>
+								<td><p>@b.YearRelease</p></td>
+								@foreach (var g in ViewBag.Genres)
+								{
+									if (g.Id == b.GenreId)
+									{
+										<td>
+											<p>@g.Name</p>
+										</td>
+									}
+								}
+
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>

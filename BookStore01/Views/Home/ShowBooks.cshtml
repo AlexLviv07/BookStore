@@ -1,0 +1,33 @@
+﻿
+	<table class="table table-striped table-hover ">
+		<thead>
+			<tr class="header">
+				<th><p>Id</p></th>
+				<th><p>Название книги</p></th>
+				<th><p>Автор</p></th>
+				<th><p>Цена</p></th>
+				<th>Жанр</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var b in ViewBag.Books)
+			{
+				<tr>
+					<td><p>@b.Id</p></td>
+					<td><p>@b.Name</p></td>
+					<td><p>@b.Author</p></td>
+					<td><p>@b.YearRelease</p></td>
+					@foreach (var g in ViewBag.Genres)
+					{
+						if (g.Id == b.GenreId)
+						{
+							<td>
+								<p>@g.Name</p>
+							</td>
+						}
+					}
+
+				</tr>
+			}
+		</tbody>
+	</table>
